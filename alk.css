@@ -1,0 +1,193 @@
+body{
+	margin:0px;
+	padding:0pt;
+	background-color:#ffff66;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	cursor:default;
+	overflow:auto;
+	font-family:arial;
+	font-size:12pt;
+}
+h2{
+	font-size:12pt;
+}
+div.settings{
+	padding:0pt 0pt 10pt 40pt;
+	border: solid black;
+	border-width: 0px 0px 1px 0px;
+	min-width:50%;
+}
+#searchbar {
+	background-color:#ffd700;
+	width: 100%;
+	padding: 0px;
+	margin:0px;
+	position:fixed;
+	box-shadow: 0px 0px 5px 5px #ffd700;
+	z-index:100;
+}
+.jsonfile{
+	width: 160pt;
+}
+.bookadderinput{
+	margin-left:12pt;
+	margin-right:6pt;
+	width: 74pt;
+}
+.searchbutton,.settingsbutton,.bookbutton,.bookrenamebutton, 
+.bookadder,.deleverything,.papers,
+.jsonexport,.jsonimport,.jsonfile,.export_list,.export_plot,.bookdel,.areabutton,
+.areasettingsadder, .personbutton, .personadder, .anonymizer{
+	height:15pt;
+	background-color:#ffd700;
+	display:inline-block;
+	margin:5pt 0pt 0pt 5pt;
+	padding:4pt;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	border-radius:10px;
+	padding-right:5pt;
+	padding-left:5pt;
+}
+.searchbutton,.settingsbutton{
+	font-size:14pt;
+}
+.personbutton{
+	font-size:10pt;
+	padding:0pt;
+	padding-left:5pt;
+	padding-right:5pt;
+}
+.searchbutton:hover,.settingsbutton:hover,.bookbutton:hover,
+.bookrenamebutton:hover,
+.bookadder:hover,.deleverything:hover,.jsonexport:hover,.papers:hover,
+.jsonimport:hover,.jsonfile:hover,.bookdel:hover,
+.export_list:hover,.export_plot:hover,.areabutton:hover,.areasettingsadder:hover,
+.personbutton:hover, .personadder:hover, .anonymizer:hover{
+	background-color:#ff6;
+	box-shadow: 0px 0px 5px 5px #ff6;
+}
+.searchbutton:active,.settingsbutton:active{
+	box-shadow: 0px 0px 20px 20px #ff6;
+}
+.areasettingslist{
+	padding-bottom:10pt;
+}
+.areaadderinput{
+	width:50pt;
+}
+#content {
+	margin:0pt;
+	padding:40pt 40pt 0pt 40pt;
+}
+div.area {
+	margin-right: 2px;
+	margin-bottom: 50pt;
+	text-align:center;
+	display:inline-table;
+	width:170pt;
+}
+.areacaption{
+	font-size: 18pt;
+	font-weight:bold;
+}
+table.area{
+	border:solid 1px;
+	border-spacing:0px;
+	width:100%;
+}
+td.areaname,td.areataken,td.areareturned{
+	padding:1pt 0pt 1pt 0pt;
+	border-style: solid;
+}
+td.areaname{
+	border-width: 1px 1px 0px 1px;
+}
+td.areataken{
+	border-width: 1px 1px 1px 1px;
+	width:50%;
+}
+td.areareturned{
+	border-width: 1px 1px 1px 0px;
+	width:50%;
+}
+
+.markupadder, .markupremover{
+	width:47%;
+	margin: 0px 0px 0px -1px;
+	display:inline-block;
+	border-style: dashed;
+	border-width: 0px 1px 1px 1px;
+	background-color:#ffd700;
+	padding:1pt 0pt 1pt 0pt;
+}
+.markupadder:hover,.markupremover:hover{
+	background-color:#ffff66;
+}
+.dropdown{
+	position:absolute;
+	display:block;
+	margin-top:-54pt;
+	margin-left:-4pt;
+	min-height: 47pt;
+	background-color:#ffd700;
+	width:166pt;
+	border-radius:10px;
+	opacity:0.96;
+	box-shadow: 5px 5px 10px #994;
+	padding:5pt;
+}
+/*	Papers-styles	*/
+.papersmaincell{
+	padding: 0pt;
+	margin: 0px 0px 0px 0px;
+	border-spacing: 0px;
+	border-style: dashed;
+	border-width: 0px 0px 0px 0px;
+	display: inline-block;
+	font-size:10pt;
+	margin: 10pt;
+	page-break-inside: avoid;
+}
+.papersnametopic{
+	display:inline-block;
+	width:45%;
+	border-style: dashed;
+	border-width: 0px 1px 1px 0px;
+}
+.papersdatetopic{
+	display:inline-block;
+	width:45%;
+	text-align:right;
+}
+.paperstopiccell,.paperscell,.paperscell_left{
+	padding: 2pt;
+	text-align: center;
+	border-spacing: 0px;
+	margin: 0px;
+}
+.paperstopiccell{
+	border-style: dashed;
+	border-width: 0px 0px 1px 0px;
+
+}
+.paperscell_left{
+	border-style: dashed;
+	border-width: 0px 1px 0px 0px;
+}
+@media print{
+	@page{
+		margin: 0.5cm;
+	}
+	#searchbar{ 
+		display:none; 
+	}
+	#content{
+		margin: 0pt;
+		padding: 0pt;	
+		overflow: visible;
+	}
+
+}

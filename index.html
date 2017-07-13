@@ -1,0 +1,174 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Alk</title>
+	<link rel="stylesheet" href="alk.css">
+	<script src="jquery-2.2.1.js"></script>
+	<script src="engine.js"></script>
+	<script src="area.js"></script>
+	<script src="mustache.js"></script>
+	<script src="eventhandlers.js"></script>
+	<script src="files.js"></script>
+	<script src="tools.js"></script>
+	<!--  Model Template for areas  -->
+	<script id="areatemplate" type="text/template">
+		{{#areas}}
+		<div class="area" name={{subname}}{{name}}>
+			<div class="areacaption">
+				{{subname}}{{name}}
+			</div>
+			
+			<table class="area">
+				{{#markups2str}}
+				<tr>	<td class="areaname"colspan="2">{{person}}</td>	</tr>
+				<tr>	<td class="areataken">{{taken}}</td>	<td class="areareturned">{{returned}}</td>	</tr>
+				{{/markups2str}}
+			</table>
+			<div>
+				<div class="markupadder" subname={{subname}} name={{name}}>Add</div><div class="markupremover" subname={{subname}} name={{name}}>Remove</div>
+			</div>
+		</div>
+		{{/areas}}
+	</script>
+
+	<!--	Model Template for markup table content	-->
+	<!-- If 'name' and 'taken' must be added   -->
+	<script id="addertemplatev1" type="text/template">
+		<div class="dropdown" func="markupwidgetadder">
+			Name: <select class="personselector">{{#persons}}<option>{{name}}</option>{{/persons}}</select><br />
+			Date: <input type="date" class="widgetdatepicker"> <br />
+			<button class="add" subname={{subname}} name={{name}}>Add</button><button class="cancel">Cancel</button>
+		</div>
+	</script>
+	<!--	If 'returned' must be added	-->
+	<script id="addertemplatev2" type="text/template">
+		<div class="dropdown" func="markupwidgetadder">
+			Date: <input type="date" class="widgetdatepicker"> <br />
+			<button class="add2" subname={{subname}} name={{name}}>Add</button><button class="cancel">Cancel</button>
+		</div>
+	</script>
+	<!--	If latest addition must be removed	-->
+	<script id="removertemplate" type="text/template">
+		<div class="dropdown" func="arearemover">
+			<br /><button class="remove" subname={{subname}} name={{name}}>Remove</button><Button class="cancel">Cancel</Button><br /><br />
+		</div>
+	</script>
+
+	<script id="searchbbtemplate" type="text/template">
+		{{#subnames}}<div class="searchbutton" subname={{subname}}>{{subname}}</div>{{/subnames}}
+	</script>
+
+	<script id="settingsbtn" type="text/template">
+		<div class="settingsbutton" id="settingsbutton">Settings</div> 
+	</script>
+	
+	<!!--	the settings page -->
+	<script id="settings" type="text/template">
+
+		<h2>Choose / Export / Import books</h2>
+			<div class="settings">
+				<input type="file" class="jsonfile"></input>
+				<div class="jsonimport">Import JSON</div> 
+				<input class="bookadderinput" type="text" value="Name" onclick="$(this).val('')" >
+				<div class="bookadder" >Add new</div>
+
+			<table>
+				{{#books}}<tr>
+				<td><div class="bookbutton" bookname={{bookname}}>{{bookname}}</div></td>
+				<td><div class="bookrenamebutton" bookname={{bookname}}>Rename</div></td>
+				<td><div class="jsonexport" bookname={{bookname}}>Export JSON</div></td>
+				<td><div class="export_list" bookname={{bookname}}>Export list</div></td>
+				<td><div class="export_plot" bookname={{bookname}}>Export plot</div></td>
+				<td><div class="papers" bookname={{bookname}}>Papers</div></td>
+				<td><div class="bookdel" bookname={{bookname}}>Delete</div></td>
+
+				</tr>{{/books}}
+				
+			</table>
+						</div>
+			
+			<div id="subsettingscontent">
+			</div>
+
+			<div class="settings">
+			<div class="deleverything">Clear local data</div>
+			</div>
+
+	</script>
+
+	<!!--	the settings page -->
+	<script id="subsettings" type="text/template">
+		<h2> {{bookname}} settings: </h2>
+			<div class="settings">
+				<div>
+					<input class="personinput" type="text" value="Name" onclick="$(this).val('')" >
+					<div class="personadder" >Add person</div> <div class="anonymizer" >Anonymize {{bookname}}</div> <br />
+					{{#persons}}
+					<div class="personbutton" person={{name}}>{{name}}</div>
+					{{/persons}}
+				</div>
+				<br /><br />
+					<input class="areaadderinput" func="subname" type="text" value="Name" onclick="$(this).val('')" >
+					<input class="areaadderinput" func="name" type="text" value="Number" onclick="$(this).val('')" >-
+					<input class="areaadderinput" func="nameend" type="text" value="Number (end)" onclick="$(this).val('')" >
+					<div class="areasettingsadder">Add new area</div>
+				{{#subnamehierarchy}}
+				{{#subnames}}
+				<div class="areasettingslist">
+					{{#areas}}
+					<div class="areabutton" subname={{subname}} name={{name}}>{{subname}}{{name}}</div>
+			
+					{{/areas}}
+				</div>
+				{{/subnames}}
+				{{/subnamehierarchy}}
+	
+		</div>
+	</script>
+	
+	<!!--	papers -->
+	<script id="papers" type="text/template">
+		{{#namehierarchy}}
+		<div class="papersmaincell">
+		<div class="papersnametopic">{{person}}</div> <div class="papersdatetopic">{{date}}</div>
+		<p class="printable">Hello. 
+				    <br>This is a list. <br>
+					Thank you
+			</p>
+				<table class="printable">
+					<tr><td class="paperstopiccell">No.</td>
+					<td class="paperstopiccell">Taken</td>
+					<td class="paperstopiccell">Returned</td></tr>
+					{{#areas}}
+					<tr><td class="paperscell_left">{{subname}}{{name}}</td>
+					<td class="paperscell">{{taken}}</td>
+					<td class="paperscell">{{lastreturned}}</td></tr>
+					{{/areas}}
+				</table>
+		</div>
+		{{/namehierarchy}}
+	</script>
+
+
+</head>
+
+<body>
+
+	<div id="searchbar">
+		<div class="settingsbutton" id="settingsbutton">Settings</div> 
+	</div>
+
+	<div id="content">
+	</div>
+
+</body>
+
+
+
+<script>
+var books=[];
+s_handlers()
+</script>
+
+</html> 

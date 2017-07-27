@@ -193,6 +193,81 @@ function s_handlers(){
 			writejson(txt,bookname+'_plot_','.csv');
 		}
 	});
+	$('.plot_plot').off('click').on('click',function(){
+		//replace the following four lines with something more flexible!
+		var now=new date();
+		now.setDate(0);
+		var d2=new date(now.valueOf()+4*dayspermonth*days);
+		var d1=undefined;//new date(d2.valueOf()-(3*12+4)*dayspermonth*days);
+		if(confirm("This may take a minute...")){
+			var bookname=$(this).attr('bookname');
+			var bktmp = (books.filter( function(i){return i.bookname==bookname} ))[0];
+			var txt = bktmp.graphs(d1,d2);
+			var tmpl =  $("#plotbox_tmpl").html();
+			var render = Mustache.render(tmpl,bktmp);
+			console.log(render)
+			$("#content").empty().append(render);
+			g=new Dygraph(
+				document.getElementById("plotbox"),
+				txt,
+				{
+					strokeWidth: 2,
+					stepPlot: false,
+					legend:"always",
+					labelsSeparateLines:true,
+					labelsDiv:"legend_fill",
+					gridLineColor:"#000000",
+					//highlightSeriesOpts:{strokeWidth: 3},
+					//highlightSeriesBackgroundAlpha:0.9,
+					series: {
+						'Markups/year': {
+							//strokePattern:[2, 2],
+							color: "#000099",
+						},
+						'At Desk':{
+							color: "#2222FF",
+							//strokePattern: [16, 4]
+						},
+						'At Desk > 12mo.':{
+							color: "#9999FF",
+							//strokePattern: [16, 4]
+						},
+						'Total': {
+							strokeWidth: 0,
+							fillGraph: true,
+							color: "#44FF44",
+							fillAlpha: 0.7
+						},
+						'>4 months': { 
+							strokeWidth: 0,
+							fillGraph: true,
+							color: "#DDB500",
+							fillAlpha: 0.7
+						},
+						'>8 months': { 
+							strokeWidth: 0,
+							fillGraph: true,
+							color: "#BB3300",
+							fillAlpha: 0.7
+						},
+						'>12 months': { 
+							strokeWidth: 0,
+							fillGraph: true,
+							color: "#880000",
+							fillAlpha: 0.7
+						},
+						'>24 months': { 
+							strokeWidth: 0,
+							fillGraph: true,
+							color: "#000000",
+							fillAlpha: 0.7
+						}
+					}
+					
+				}
+			);
+		}
+	});
 	$('.papers').off('click').on('click',function(){
 		var bookname=$(this).attr('bookname');
 		var bktmp = (books.filter( function(i){return i.bookname==bookname} ))[0];

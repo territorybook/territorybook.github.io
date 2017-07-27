@@ -19,6 +19,24 @@ div.settings{
 	border-width: 0px 0px 1px 0px;
 	min-width:50%;
 }
+div#plotbox{
+	position:absolute;
+	width:90%;
+	height:90%;
+}
+div#legendbox{
+	position:absolute;
+	margin-left:10%;
+	margin-top:2%;
+	background-color:#ffffff;
+	opacity: 0.9;
+	border-radius:10px;
+	border-width:1px;
+	border-style:solid;
+	padding: 10pt;
+	font-weight:bold;
+}
+
 #searchbar {
 	background-color:#ffd700;
 	width: 100%;
@@ -38,7 +56,7 @@ div.settings{
 }
 .searchbutton,.settingsbutton,.bookbutton,.bookrenamebutton, 
 .bookadder,.deleverything,.papers,
-.jsonexport,.jsonimport,.jsonfile,.export_list,.export_plot,.bookdel,.areabutton,
+.jsonexport,.jsonimport,.jsonfile,.export_list,.export_plot,.plot_plot,.bookdel,.areabutton,
 .areasettingsadder, .personbutton, .personadder, .anonymizer{
 	height:15pt;
 	background-color:#ffd700;
@@ -64,7 +82,7 @@ div.settings{
 .bookrenamebutton:hover,
 .bookadder:hover,.deleverything:hover,.jsonexport:hover,.papers:hover,
 .jsonimport:hover,.jsonfile:hover,.bookdel:hover,
-.export_list:hover,.export_plot:hover,.areabutton:hover,.areasettingsadder:hover,
+.export_list:hover,.export_plot:hover,.plot_plot:hover,.areabutton:hover,.areasettingsadder:hover,
 .personbutton:hover, .personadder:hover, .anonymizer:hover{
 	background-color:#ff6;
 	box-shadow: 0px 0px 5px 5px #ff6;

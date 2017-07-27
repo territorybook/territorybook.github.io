@@ -17,6 +17,13 @@ function date(date){
 		return this.getDate().toString()+"."+(this.getMonth()+1).toString()
 				+"."+this.getFullYear().toString();
 	}
+	
+	newdate.date2pltstr=function(){
+		return this.getFullYear().toString()+"-"+(this.getMonth()+1).toString()
+				+"-"+this.getDate().toString();
+	}
+	
+	
 	newdate.date2picker=function(){
 		return (0+this.getFullYear().toString()).slice(-4)+"-"+(0+(this.getMonth()+1).toString()).slice(-2)
 				+"-"+(0+this.getDate().toString()).slice(-2);
@@ -102,3 +109,26 @@ function matrix2csvstr(matrix){
 
 var days=1000*60*60*24;
 var dayspermonth = 365/12;
+
+function drag_start(event) 
+{
+	var style = window.getComputedStyle(event.target, null);
+	var str = (parseInt(style.getPropertyValue("left")) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top")) - event.clientY)+ ',' + event.target.id;
+	event.dataTransfer.setData("Text",str);
+} 
+
+function drop(event) 
+{
+	var offset = event.dataTransfer.getData("Text").split(',');
+	var dm = document.getElementById(offset[2]);
+	dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
+	dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+	event.preventDefault();
+	return false;
+}
+
+function drag_over(event)
+{
+        event.preventDefault();
+        return false;
+}   

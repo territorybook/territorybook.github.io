@@ -224,7 +224,7 @@ function book(name){//the whole book
 			dta = this.earliestdate();
 		}
 
-		var graphs2return=[["Date","Markups/year",">24 months",">12 months","8-12 months","4-8 months", "0-4 months","At Desk", "At Desk > 12mo."]];
+		var graphs2return=[["Date","Markups/year",">24 months",">12 months",">8 months",">4 months", "Total","At Desk", "At Desk > 12mo."]];
 		var dayvector=linspaceofdays(dta,dtb);
 		var plotdata = matrix2csvstr( graphs2return.concat(dayvector.map(function(datevar){
 			var areamaptemp = this.areas.filter(function(i){//exclude non-existing ones
@@ -248,7 +248,7 @@ function book(name){//the whole book
 
 			var total = areamaptemp.length;
 
-			return [datevar.date2str(),mkpsyear,months24,months12,months8,months4,total,atdesk,atdesk12mo];
+			return [datevar.date2pltstr(),mkpsyear,months24,months12,months8,months4,total,atdesk,atdesk12mo];
 		}, this )));
 		return plotdata;
 	}

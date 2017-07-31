@@ -112,17 +112,20 @@ function book(name){//the whole book
 	//
 	//at a given date dt
 	this.simplestring=function(dt){
+		var sr = '|';
+		var sr2 = sr+sr;
+		var sr3 = sr2+sr;
 		var row = 10;//make sure this is correct!
 		var row_end=row+this.areas.length-1;
-		var str=',,'+this.bookname+','+'Date:'+','+dt.date2str()+'\n';
-		str=str+',,,overtime'+','+12+','+'months.'+'\n';
-		str=str+',,,undertime'+','+4+','+'months.'+'\n'+'\n';
-		str=str+',,,'+'Total:'+','+ '=counta(A'+row+':A'+row_end+')' +'\n';
-		str=str+',,'+','+'Overtime:'+','+'=countif(G'+row+':G'+row_end+';D2)'+'\n';
-		str=str+',,,'+'Undertime:'+','+'=countif(G'+row+':G'+row_end+';D3)'+'\n'+'\n';
+		var str=sr2+this.bookname+sr+'Date:'+sr+dt.date2str()+'\n';
+		str=str+sr3+'overtime'+sr+'12'+sr+'months.'+'\n';
+		str=str+sr3+'undertime'+sr+'4'+sr+'months.'+'\n'+'\n';
+		str=str+sr3+'Total:'+sr+ '=counta(A'+row+':A'+row_end+')' +'\n';
+		str=str+sr3+'Overtime:'+sr+'=countif(G'+row+':G'+row_end+',D2)'+'\n';
+		str=str+sr3+'Undertime:'+sr+'=countif(G'+row+':G'+row_end+',D3)'+'\n'+'\n';
 		
 		var last=[];
-		str=str+''+','+''+','+'Person'+','+'Taken'+','+'Latest return'+','+'Age(months)'+','+'remarks'+'\n';
+		str=str+''+sr+''+sr+'Person'+sr+'Taken'+sr+'Latest return'+sr+'Age(months)'+sr+'remarks'+'\n';
 		for (i of this.areas){
 			last=i.last();
 			if(!last[0]){
@@ -136,10 +139,10 @@ function book(name){//the whole book
 			}else{
 				last[2]="-";
 			}
-			str=str+i.subname+','+i.name+','+'\"'+last[0]+'\"'
-				+','+last[1]+','+last[2]+','+
-				'=(year($E$1)-year(E'+row+'))*12+month($E$1)-month(E'+row+')+(day($E$1)-day(E'+row+'))/(365/12)'+','+
-				'=if(F'+row+'>$E$2;"overtime";if(F'+row+'<$E$3;"undertime";""))'+'\n';
+			str=str+i.subname+sr+i.name+sr+'\"'+last[0]+'\"'
+				+sr+last[1]+sr+last[2]+sr+
+				'=(year($E$1)-year(E'+row+'))*12+month($E$1)-month(E'+row+')+(day($E$1)-day(E'+row+'))/(365/12)'+sr+
+				'=if(F'+row+'>$E$2,"overtime",if(F'+row+'<$E$3,"undertime",""))'+'\n';
 			row++;
 		}
 		return str;
